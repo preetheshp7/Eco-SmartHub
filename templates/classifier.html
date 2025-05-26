@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Waste Classifier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='classifer/styles.css') }}">
+</head>
+<body>
+    <div class="con">
+        <h1>Smart Waste Classifier</h1>
+
+        <label for="imageInput">Upload or Capture Image</label>
+        <input type="file" id="imageInput" accept="image/*" capture="environment">
+        <div  class="image-container">
+        <img id="preview" src="#" alt="Image Preview" style="display: none;">
+        </div>
+        <br>
+        <button onclick="predict()">Predict</button>
+
+        <p id="output">Prediction will appear here...</p>
+        <p id="loading">Analyzing Image...</p>
+
+        <div class="nav-buttons">
+            <button onclick="history.back()">👈 Back</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='classifer/script.js') }}"></script>
+</body>
+</html>

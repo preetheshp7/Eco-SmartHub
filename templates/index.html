@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoSmart Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">🌿 EcoSmart Hub</div>
+            <nav>
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('classifier') }}">Waste Classification</a>
+                <a href="{{ url_for('energy') }}">Energy Tracker</a>
+                <a href="{{ url_for('bot') }}">EcoChat</a>
+                <a href="{{ url_for('location') }}">Recycling Centers</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to EcoSmart Hub</h1>
+        <p>Your all-in-one solution for sustainable living and waste management</p>
+    </section>
+
+    <section class="features">
+        <h2>Our Features</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <h3>EcoChat Bot</h3>
+                <p>Get instant answers to your sustainability questions from our specialized eco-friendly chatbot.</p>
+                <a href="{{ url_for('bot') }}"><button>Explore EcoChat Bot</button></a>
+            </div>
+            <div class="card">
+                <h3>Energy Tracker</h3>
+                <p>Monitor your energy consumption with insightful visualizations and receive tips to reduce usage.</p>
+                <a href="{{ url_for('energy') }}"><button>Explore Energy Tracker</button></a>
+            </div>
+            <div class="card">
+                <h3>Recycling Centers</h3>
+                <p>Discover recycling centers near you and learn about their accepted materials and operating hours.</p>
+                <a href="{{ url_for('location') }}"><button>Explore Recycling Centers</button></a>
+            </div>
+            <div class="card">
+                <h3>Waste Classification</h3>
+                <p>Upload or capture images of waste items for instant classification and proper disposal guidance.</p>
+                <a href="{{ url_for('classifier') }}"><button>Explore Waste Classification</button></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div>🌿 EcoSmart Hub</div>
+            <div class="footer-links">
+                <button onclick="openModal('aboutModal')">About Us</button>
+                <button onclick="openModal('contactModal')">Contact</button>
+            </div>
+        </div>
+        <h2>&copy; Join the Green Revolution.</h2>
+        <p>Together, we can make a difference. Every small action counts towards a more sustainable future.</p>
+    </footer>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+            <h2>About EcoWise Hub</h2>
+            <p>
+                EcoSmart Hub is a smart sustainability platform designed to empower individuals and communities to live greener. 
+                We provide tools like waste classification, energy tracking, and local recycling info to make eco-conscious living simple and accessible.
+            </p>
+            <p>
+                Our mission is to bridge technology and sustainability, helping users reduce their environmental footprint through informed, everyday actions.
+            </p>
+        </div>
+    </div>
+      
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('contactModal')">&times;</span>
+            <h2>Contact Us</h2>
+            <p>Email: ecosmarthubproject@gmail.com<br>
+               Phone: +91 8722500439<br>
+               Location: Nehru Nagara, Puttur, DK, Karnataka, India, 574201</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        
+        // Close modal if clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        };
+    </script>
+</body>
+</html>

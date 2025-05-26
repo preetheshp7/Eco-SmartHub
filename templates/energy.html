@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSmartHub - Energy Consumption Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='energy/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EcoSmartHub - Energy Consumption Tracker</h1>
+            <p>Track your energy usage, estimate costs, and discover ways to save</p>
+        </header>
+
+        <div class="sidebar">
+            <div class="add-appliance-container">
+                <section class="add-appliance">
+                    <h2>Add New Appliance</h2>
+                    <form id="add-appliance-form">
+                        <label for="appliance-name">Appliance Name:</label>
+                        <input type="text" id="appliance-name" required><br><br>
+
+                        <label for="appliance-power">Power Consumption (Watts):</label>
+                        <input type="number" id="appliance-power" required><br><br>
+
+                        <label for="appliance-hours">Hours Used Per Day:</label>
+                        <input type="number" id="appliance-hours" min="0" max="24" step="0.01" required><br><br>
+
+                        <label for="appliance-days">Days Used Per Month:</label>
+                        <input type="number" id="appliance-days" min="1" max="31" required><br><br>
+
+                        <button type="submit">Add Appliance</button>
+                    </form>
+                </section>
+            </div>
+
+            <div class="rate-settings-tab">
+                <section class="rate-settings">
+                    <h2>Set Electricity Rates (₹/kWh)</h2>
+
+                    <label for="tariff-type">Tariff Type:</label>
+                    <select id="tariff-type">
+                        <option value="domestic">Domestic (LT-2a)</option>
+                        <option value="commercial">Commercial (LT-3a)</option>
+                        <option value="agriculture">Agricultural (LT-4a)</option>
+                        <option value="industrial">Industrial (LT-5)</option>
+                        <option value="ev">EV Charging (LT-6c)</option>
+                        <option value="temporary">Temporary Supply (LT-7)</option>
+                        <option value="custom">Custom</option>
+                    </select>
+
+                    <div class="slab-inputs" id="custom-rate-inputs">
+                        <label for="rate-slab1">Rate for 0-100 kWh:</label>
+                        <input type="number" id="rate-slab1" placeholder="e.g., 5.00"><br>
+                        </div>
+
+                    <button id="save-rate-btn" type="button">Save Rates</button>
+                </section>
+            </div>
+
+            <div class="ai-suggestion-container">
+                <section class="ai-suggestion">
+                    <h2>AI Energy Saving Tips</h2>
+                    <div id="ai-suggestion-text">Based on your usage, here are some potential savings:</div>
+                    <div class="suggestions-grid" id="ai-suggestions-output">
+                        <div class="suggestion-box">
+                        <h3>Suggestion will be Shown here</h3>
+                        </div>
+                        </div>
+                    <button id="get-new-suggestion-btn">Ask for suggestion</button>
+                </section>
+            </div>
+
+            <div class="nav-buttons">
+                <button onclick="history.back()">👈 Back</button>
+            </div>
+        </div>
+
+        <main class="dashboard">
+            <section class="energy-summary">
+                <h2>Energy Consumption Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <p>Total Appliances</p>
+                        <span id="total-appliances">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <p>Total Consumption</p>
+                        <span id="total-consumption">0.00 kWh</span>
+                    </div>
+                    <div class="summary-item">
+                        <p>Estimated Monthly Cost</p>
+                        <span id="estimated-cost">₹0.00</span>
+                    </div>
+                </div>
+                <div class="energy-chart">
+                    <canvas id="energy-usage-chart" width="400" height="200"></canvas>
+                </div>
+            </section>
+
+            <section class="appliance-details">
+                <h2>Appliance Details</h2>
+                <div class="details-actions">
+                    <button class="export-btn export-csv-btn">↓ Export CSV</button>
+                    <button class="export-btn export-json-btn">↓ Export JSON</button>
+                </div>
+                <div class="appliance-list">
+                    <div class="empty-state">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-3a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L4.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                        </svg>
+                        <p>No appliances added yet.</p>
+                        <p>Start by adding your appliances to track energy consumption.</p>
+                    </div>
+                    <table id="appliance-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Power(W)</th>
+                                <th>Hours/Day</th>
+                                <th>Days/Month</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appliance-list-body"></tbody>
+                    </table>
+                </div>
+                <div class="details-footer">
+                    <span id="appliances-tracked">0 appliances tracked</span>
+                    <button id="clear-all-btn">Clear All</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='energy/script.js') }}"></script>
+</body>
+</html>

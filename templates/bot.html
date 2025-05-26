@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bot/styles.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Waste Management Chatbot</h1>
+        </div>
+
+        <div class="chat-box" id="chat-box">
+            <div id="error-message" class="error-message" style="display: none;"></div>
+        </div>
+
+        <div class="chat-input-area">
+            <form id="question-form">
+                <label for="waste-type">Choose a waste type:</label>
+                <select id="waste-type" name="waste_type" onchange="showSuggestedQuestions()">
+                    <option value="">Select Waste Type</option>
+                    <option value="electronic">Electronic Waste (E-Waste)</option>
+                    <option value="plastic">Plastic Waste</option>
+                    <option value="paper">Paper Waste</option>
+                    <option value="organic">Organic Waste</option>
+                </select>
+            </form>
+
+            <div id="suggested-questions" style="display: none;">
+                <h2>Suggested Questions:</h2>
+                <div id="questions-list"></div>
+            </div>
+
+            <input type="text" id="customQuestion" placeholder="Ask your own question">
+            <button onclick="askCustomQuestion()">Ask Custom Question</button>
+        </div>
+
+        <div class="nav-buttons">
+            <button onclick="history.back()">👈 Back</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='bot/script.js') }}"></script>
+</body>
+</html>

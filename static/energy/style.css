@@ -1,0 +1,769 @@
+/* Universal Box-Sizing for consistency */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* A slightly more modern sans-serif font */
+    margin: 0;
+    background-color: #f4f6f8;
+    color: #333;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    /* Improved readability */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    /* Adjusted sidebar width for better balance */
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    /* Subtle container shadow */
+}
+
+header {
+    grid-column: 1 / -1;
+    /* Spans full width */
+    background-color: #fff;
+    padding: 20px 30px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    /* Centered for a cleaner look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    user-select: none;
+}
+
+header h1 {
+    margin-bottom: 8px;
+    /* Slightly adjusted margin */
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 1.8em;
+    /* Slightly larger heading */
+}
+
+header p {
+    color: #777;
+    font-size: 0.95em;
+    /* Slightly larger paragraph text */
+    font-weight: 400;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 20px 25px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    gap: 20px;
+    /* Adds space between sections */
+}
+
+.sidebar h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    /* Slightly larger heading */
+    font-weight: 700;
+    border-bottom: 1px solid #eee;
+    /* Adds a subtle separator */
+    padding-bottom: 10px;
+}
+
+/* General card styling for sidebar sections */
+.add-appliance-container,
+.rate-settings-tab,
+.ai-suggestion-container {
+    /* This class is now used for the outer container of AI suggestions */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    /* Slightly stronger shadow */
+    padding: 20px;
+    /* Increased padding */
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    /* Added transform for hover effect */
+}
+
+.add-appliance-container:hover,
+.rate-settings-tab:hover,
+.ai-suggestion-container:hover {
+    transform: translateY(-2px);
+    /* Subtle lift on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Enhanced shadow on hover */
+}
+
+.add-appliance-container.open {
+    box-shadow: 0 0 12px 3px #2c3e50aa;
+    /* Stronger focus shadow */
+    border: 1px solid #2c3e50;
+}
+
+/* Buttons - Unified styling */
+.add-appliance button,
+#add-appliance-form button[type="submit"],
+#get-new-suggestion-btn,
+#save-rate-btn,
+.export-btn,
+#clear-all-btn,
+.nav-buttons button {
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    /* Slightly more rounded corners */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    /* For better icon/text alignment if needed */
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    /* Space for potential icons */
+}
+
+/* Hover effects for all main buttons */
+.add-appliance button:hover,
+#add-appliance-form button[type="submit"]:hover,
+#get-new-suggestion-btn:hover,
+#save-rate-btn:hover,
+.export-btn:hover,
+#clear-all-btn:hover,
+.nav-buttons button:hover {
+    background-color: #34495e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Specific button color overrides */
+#add-appliance-form button[type="submit"] {
+    background-color: #28a745;
+    /* Green for Add Appliance */
+}
+
+#add-appliance-form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+#get-new-suggestion-btn {
+    background-color: #007bff;
+    /* Blue for AI suggestions */
+    width: 100%;
+    /* Make it span full width within its container */
+    margin-top: 20px;
+    /* Add some space above the button */
+}
+
+#get-new-suggestion-btn:hover {
+    background-color: #0069d9;
+}
+
+#save-rate-btn {
+    background-color: #17a2b8;
+    /* Teal for Save Rates */
+    margin-top: 15px;
+    /* Add some space above the button */
+}
+
+#save-rate-btn:hover {
+    background-color: #138496;
+}
+
+.export-btn {
+    background-color: #28a745;
+    /* Green for Export */
+}
+
+.export-btn:hover {
+    background-color: #218838;
+}
+
+#clear-all-btn {
+    background-color: #dc3545;
+    /* Red for Clear All */
+    font-weight: 700;
+}
+
+#clear-all-btn:hover {
+    background-color: #c82333;
+}
+
+.nav-buttons button {
+    background-color: #6c757d;
+    /* Gray for navigation */
+}
+
+.nav-buttons button:hover {
+    background-color: #5a6268;
+}
+
+
+/* Form Inputs - General styling */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    /* Apply to select elements as well */
+    width: 100%;
+    /* Make them full width */
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    /* Consistent margin */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Ensures padding doesn't increase width */
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #2c3e50;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
+    /* Focus ring effect */
+    outline: none;
+}
+
+/* Specific styling for the rate settings */
+.rate-settings label {
+    margin-top: 10px;
+    /* Space between inputs */
+}
+
+/* Hide slab inputs by default, show only when 'custom' tariff is selected */
+.slab-inputs {
+    display: none;
+    /* Hidden by default */
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    /* Separator for clarity */
+    margin-top: 15px;
+}
+
+.slab-inputs label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: normal;
+    color: #555;
+}
+
+.slab-inputs input[type="number"] {
+    width: calc(100% - 20px);
+    /* Adjust width considering padding */
+    margin-bottom: 10px;
+}
+
+/* Dashboard */
+.dashboard {
+    padding: 25px 30px;
+    overflow-y: auto;
+    background-color: #fefefe;
+    /* Slightly lighter background */
+}
+
+.energy-summary,
+.appliance-details {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    /* Consistent shadow */
+    margin-bottom: 25px;
+}
+
+.energy-summary h2,
+.appliance-details h2,
+.ai-suggestion h2 {
+    /* This now applies to the h2 inside the .ai-suggestion section */
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 1.5em;
+    /* Slightly larger section headings */
+    font-weight: 700;
+    border-bottom: 1px solid #eee;
+    /* Adds a subtle separator */
+    padding-bottom: 10px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Adjusted min-width */
+    gap: 20px;
+    /* Increased gap */
+    margin-bottom: 25px;
+}
+
+.summary-item {
+    background-color: #e8f5e9;
+    /* Light green for positive feel */
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    /* Slightly more prominent shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.summary-item:hover {
+    background-color: #d4edda;
+    transform: translateY(-3px);
+    /* More pronounced lift */
+}
+
+.summary-item p {
+    color: #555;
+    margin-bottom: 8px;
+    font-size: 1em;
+    /* Adjusted font size */
+    font-weight: 600;
+}
+
+.summary-item span {
+    font-size: 2em;
+    /* Larger number */
+    font-weight: 700;
+    color: #2e7d32;
+    /* Darker green */
+    letter-spacing: 0.03em;
+}
+
+.energy-chart {
+    border: 1px solid #e0e0e0;
+    /* Lighter border */
+    height: 400px;
+    /* Reduced height for better fit */
+    border-radius: 8px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    font-style: italic;
+    font-size: 1.1em;
+    user-select: none;
+    padding: 15px;
+    /* Add padding for the chart */
+}
+
+/* Appliance Details */
+.details-actions {
+    margin-bottom: 20px;
+    text-align: right;
+    display: flex;
+    /* Use flexbox for button alignment */
+    justify-content: flex-end;
+    /* Align to the right */
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.empty-state {
+    text-align: center;
+    color: #777;
+    padding: 40px 0;
+    user-select: none;
+    background-color: #fdfdfd;
+    /* A bit brighter background for empty state */
+    border-radius: 8px;
+    border: 1px dashed #e0e0e0;
+    /* Dashed border for visual cue */
+    margin-top: 15px;
+}
+
+.empty-state svg {
+    width: 40px;
+    /* Slightly larger icon */
+    height: 40px;
+    margin-bottom: 16px;
+    fill: #b0b0b0;
+    /* Softer fill color */
+}
+
+#appliance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    /* Adjusted margin */
+    font-size: 0.95em;
+    border: 1px solid #ddd;
+    /* Add a border around the table */
+    border-radius: 8px;
+    /* Rounded corners for the table */
+    overflow: hidden;
+    /* Ensures rounded corners apply to content */
+}
+
+#appliance-table th,
+#appliance-table td {
+    border: 1px solid #eee;
+    /* Lighter border for cells */
+    padding: 12px 15px;
+    /* More padding */
+    text-align: left;
+}
+
+#appliance-table th {
+    background-color: #eef2f7;
+    /* Lighter header background */
+    font-weight: 700;
+    color: #2c3e50;
+    text-transform: uppercase;
+    /* Uppercase table headers */
+    font-size: 0.9em;
+}
+
+#appliance-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Zebra striping */
+}
+
+.remove-btn {
+    /* Specific styling for remove button */
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.details-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    /* Increased margin */
+    color: #555;
+    font-size: 0.95em;
+    font-weight: 600;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    /* Separator */
+}
+
+/* AI Suggestion Section - Outer container is .ai-suggestion-container (already styled) */
+/* The section inside it is .ai-suggestion, which has an h2 */
+#ai-suggestion-text {
+    color: #555;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* REMOVED: Old #ai-suggestion-list and #ai-suggestion-list li styles */
+
+/* New styles for the suggestions grid and individual boxes */
+.suggestions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Consistent gap with other elements (e.g., summary-grid) */
+    justify-content: flex-start;
+    /* Align boxes to the start */
+    margin-top: 10px;
+    /* Space between the h2/text and the first row of boxes */
+}
+
+.suggestion-box {
+    background-color: #ffffff;
+    /* White background to match other cards */
+    border: 1px solid #ddd;
+    /* Light border */
+    border-radius: 8px;
+    /* Consistent border radius */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    /* Subtle shadow, slightly stronger than summary-item */
+    padding: 20px;
+    /* Good padding inside the box */
+    /*
+     * Calculate width for 3 columns with 20px gap.
+     * Total gap space for 3 items = 2 * 20px = 40px
+     * So, available width for items = 100% - 40px
+     * Width per item = (100% - 40px) / 3
+     */
+    flex: 1 1 calc(33.33% - 13.333px);
+    /* 3 columns, responsive with gap */
+    min-width: 280px;
+    /* Minimum comfortable width for content */
+    box-sizing: border-box;
+    /* Crucial for calc() with padding/border */
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    /* Add hover effects */
+}
+
+.suggestion-box:hover {
+    transform: translateY(-3px);
+    /* Subtle lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* More prominent shadow on hover */
+}
+
+.suggestion-box h3 {
+    color: #007bff;
+    /* A distinct color for suggestion titles, matching your blue buttons */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    /* Slightly smaller than h2 but larger than paragraph */
+    font-weight: 600;
+}
+
+.suggestion-box p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    /* Space between paragraphs */
+}
+
+.suggestion-box p:last-child {
+    margin-bottom: 0;
+    /* No margin below the last paragraph in a box */
+}
+
+/* Spinner for loading state */
+.spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #fff;
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Custom Modal Styles (for alert/confirm replacements) */
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Ensure it's on top of other content */
+}
+
+.custom-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    /* Responsive width */
+    color: #333;
+}
+
+.custom-modal-content p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.custom-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    /* Space between buttons */
+}
+
+.custom-modal-buttons button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#custom-alert-ok,
+#custom-confirm-ok {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#custom-alert-ok:hover,
+#custom-confirm-ok:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+#custom-confirm-cancel {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+#custom-confirm-cancel:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+
+/* Navigation buttons */
+.nav-buttons {
+    margin-top: auto;
+    /* Pushes buttons to the bottom of the sidebar */
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    /* Separator */
+    display: flex;
+    flex-direction: column;
+    /* Stack buttons vertically */
+    gap: 15px;
+    /* Space between stacked buttons */
+}
+
+/* Responsive tweaks */
+@media (max-width: 992px) {
+    /* Adjusted breakpoint for better tablet view */
+    .container {
+        grid-template-columns: 1fr;
+        /* Single column layout */
+    }
+
+    header {
+        grid-column: 1;
+        text-align: center;
+    }
+
+    .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 20px;
+    }
+
+    .dashboard {
+        padding: 20px 25px;
+    }
+
+    .custom-modal-content {
+        /* Responsive modal adjustment */
+        width: 90%;
+        margin: 10% auto;
+        /* Adjusted margin */
+        padding: 20px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+        /* Stack summary items on small screens */
+    }
+
+    .details-actions {
+        justify-content: center;
+        /* Center export buttons on small screens */
+        flex-wrap: wrap;
+        /* Allow buttons to wrap */
+    }
+
+    .nav-buttons {
+        flex-direction: row;
+        /* Layout nav buttons horizontally on smaller screens within sidebar */
+        justify-content: center;
+    }
+
+    .nav-buttons button {
+        flex-grow: 1;
+        max-width: unset;
+        /* Remove max-width constraint */
+    }
+
+    /* Responsive adjustments for suggestion boxes */
+    .suggestion-box {
+        flex: 1 1 calc(50% - 10px);
+        /* 2 columns, accounting for 20px gap */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Smaller tablets and phones */
+    .suggestion-box {
+        flex: 1 1 calc(100% - 0px);
+        /* 1 column, full width minus container padding */
+        min-width: unset;
+        /* Remove min-width constraint */
+    }
+}
+
+
+@media (max-width: 576px) {
+    /* Extra small screens */
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .sidebar h2,
+    .dashboard h2 {
+        font-size: 1.2em;
+    }
+
+    .summary-item span {
+        font-size: 1.8em;
+    }
+
+    #appliance-table th,
+    #appliance-table td {
+        padding: 8px 10px;
+        /* Reduce padding for smaller cells */
+        font-size: 0.85em;
+    }
+
+    .export-btn,
+    #clear-all-btn,
+    .remove-btn {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+}

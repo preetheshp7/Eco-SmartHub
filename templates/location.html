@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find nearby waste recycling centers easily by entering your location or using your current location.">
+    <title>Nearby Waste Centers</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='location/style.css') }}">
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&libraries=places&callback=initAutocomplete&region=in">
+    </script>
+
+    <script src="{{ url_for('static', filename='location/script.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Waste Info Finder</h2>
+
+        <label for="location">Enter a location:</label>
+        <input
+            id="location"
+            placeholder="Enter location manually (optional)"
+            aria-label="Enter location manually"
+            autocomplete="off"
+            required
+        />
+
+        <button onclick="fetchWasteInfo()" aria-label="Search for nearby recycling centers">Search</button>
+        <button onclick="useMyLocation()" aria-label="Use your current location">Use My Location</button>
+
+        <div id="loading-spinner" class="loading-spinner" style="display:none;">
+            <span>Loading...</span>
+        </div>
+
+        <div id="result"></div>
+
+        <div class="nav-buttons">
+            <button onclick="history.back()">👈 Back</button>
+        </div>
+    </div>
+</body>
+</html>
